@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Caixa Eletrônico</title>
+
+	<script>
+		
+		var saldo = 100.5; //Variavel Global
+		var senha = 3589;
+		var nome_do_usuario = 0;
+
+		function inicio() {
+			//ESCOPO
+			//Variavel Local
+			var escolha = parseInt(prompt('Selecione uma opção 1.) Saldo 2.) Extrato 3.) Saque 4.) Depósito 5.) Trasferência 6.) Sair'));
+			switch (escolha) {
+				case 1:
+					ver_saldo();
+					break;
+
+				case 2:
+					extrato();
+					break;
+
+				case 3: 
+					fazer_saque();
+					break;
+
+				case 4:
+					fazer_deposito();
+					break;
+
+				case 5: 
+					fazer_transf();
+					break;
+
+				case 6: 
+					sair();
+					break;
+
+				default:
+					erro();
+					break;
+			}
+			
+		}
+
+		function ver_saldo() {
+			var confirm = parseInt(prompt("digite sua senha: "))
+			if(confirm != senha){
+				alert("senha incorreta!")
+				ver_saldo();
+			}
+			alert('Seu saldo atual é: ' + saldo);
+			inicio();
+		}
+
+		function fazer_deposito() {
+			
+			var deposito = parseFloat(prompt('Qual o valor para depósito?'));
+			
+			// Not a Number --> Isso é um não-número?
+			if (isNaN(deposito) || deposito === '') {
+				alert('Por favor, informe um número.');
+				fazer_deposito();
+			}
+			else if (deposito <= 0){
+				alert("Operação não autorizada");
+				fazer_deposito();
+			}
+			else {
+				saldo += deposito;
+				//saldo = saldo + deposito;
+				ver_saldo();
+			}
+		}
+
+		function fazer_saque() {
+			var confirm = parseInt(prompt("digite sua senha: "))
+			if(confirm != senha){
+				alert("senha incorreta!")
+				fazer_saque();
+			}
+			
+			
+			var saque = parseFloat(prompt('Qual o valor para saque?'));
+			
+			if (isNaN(saque) || saque === '') {
+				alert('Por favor, informe um número.');
+				fazer_saque();
+			} 
+			
+			else if (saque >= saldo || saque <= 0){
+				alert("Operação não autorizada");
+				fazer_saque();
+			}
+
+			else {
+				saldo -= saque;
+				//saldo = saldo - saque;
+				ver_saldo();
+			}
+		}
+
+		function fazer_transf() {
+			var confirm = parseInt(prompt("digite sua senha: "))
+			if(confirm != senha){
+				alert("senha incorreta!")
+				fazer_transf();
+			}
+			
+
+			var numero = parseFloat(prompt('Qual a conta para trasferir?'));
+			if (isNaN(numero) || numero === '') {
+				alert('Por favor, informe um número.');
+				fazer_transf();
+			} 
+			
+			var traf = parseFloat(prompt('Qual o valor para trasferir?'));
+			
+			if (isNaN(traf) || traf === '') {
+				alert('Por favor, informe um número.');
+				fazer_transf();
+			} 
+			
+			else if (traf >= saldo || traf <= 0){
+				alert("Operação não autorizada");
+				fazer_transf();
+			}
+
+			else {
+				saldo -= traf;
+				//saldo = saldo - saque;
+				ver_saldo();
+			}
+		}
+
+		function extrato(){
+			var confirm = parseInt(prompt("digite sua senha: "))
+			if(confirm != senha){
+				alert("senha incorreta!")
+				extrato();
+			}
+			
+			alert("Seu extrato bancario: \n lojinha do jubileu: R$ 50.00; \n Studio Gamora: R$ 300; \n Steam: R$ 250; \n Dentista: R$ 130; \n Binance: R$ 1200;")
+			inicio();
+		}
+
+		function erro() {
+			alert('Por favor, informe um número entre 1 e 6.');
+			inicio();
+		}
+
+		function sair() {
+			var confirma = confirm('Você deseja sair?');
+			if (confirma) {
+				alert(nome_do_usuario +", foi um prazer ter você por aqui!")
+				window.close();
+			} else {
+				inicio();
+			}
+		}
+
+		function bemvindo(){
+		var nome = prompt("digite o seu nome: ")
+		if (isNaN(nome) || nome == "") {
+			alert("Ola " + nome + " é um prazer ter você por aqui!")
+			nome_do_usuario = nome;
+		}
+		else{
+			alert("Ops, parece que algo deu errado, digite seu nome sem qualquer numero")
+			bemvindo()
+		}
+		
+	}
+		bemvindo()
+		inicio();
+	</script>
+</head>
+
+<body>
+
+</body>
+
+</html>
